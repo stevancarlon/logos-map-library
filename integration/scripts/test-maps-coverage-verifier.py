@@ -16,7 +16,10 @@ spec = importlib.util.spec_from_file_location('coverage_verifier', Path(__file__
 v = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(v)
 ROOT = Path(__file__).resolve().parents[1]
-CATALOG = {r['path']:r for r in json.loads((ROOT/'maps/data/catalog.json').read_text())['canonical_regions']}
+catalog_path = ROOT/'maps/data/catalog.json'
+if not catalog_path.is_file():
+    catalog_path = ROOT.parent/'sdk/source/maps/data/catalog.json'
+CATALOG = {r['path']:r for r in json.loads(catalog_path.read_text())['canonical_regions']}
 
 class CoverageTests(unittest.TestCase):
     def snapshot(self):
