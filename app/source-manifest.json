@@ -688,6 +688,7 @@
   "source/lez-v03/maps-publisher/src/native.rs": "7ec5d144e968e4e56670a730a42442f5171b57c3ab13b59817dc29416f28a76e",
   "source/lez-v03/maps-sdk/Cargo.toml": "ac0955750842777f3c53591d48be37721a6dbe430d9f2613a9a96836edfe28b2",
   "source/lez-v03/maps-sdk/examples/maps-chain.rs": "c82d7e1afbf851a29dd3a239cd36284be2694fbc904c0a410964c56156544e82",
+  "source/lez-v03/maps-sdk/examples/maps-deployment-artifact.rs": "f98a0ee03cc6d75de68b1bc456a4f10464f571076fdbfad7bf50ba8cba65825e",
   "source/lez-v03/maps-sdk/examples/maps-discovery.rs": "b209226fb76d6328ccfc78f7fa4458463ad8d3948c6a0e12217d4c360abb44d6",
   "source/lez-v03/maps-sdk/src/bin/maps-v03.rs": "82148818473e345ea2b5e4049cdc4b13d5dab1c1178108ceb28d48d3da15a083",
   "source/lez-v03/maps-sdk/src/distribution.rs": "0caa17b16491033f2f5981c0ac5f3baa6825c306221c504486b9d74b3e06bfb9",
