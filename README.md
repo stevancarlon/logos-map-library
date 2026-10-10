@@ -20,3 +20,5 @@ Original code is MIT OR Apache-2.0; see the license files in each module.
 
 A runnable [standalone SDK Explorer example](examples/registry-consumer/README.md)
 installs without the distribution app. It is first-party integration evidence.
+
+Terminal users: [complete CLI setup and workflows](docs/cli.md).
