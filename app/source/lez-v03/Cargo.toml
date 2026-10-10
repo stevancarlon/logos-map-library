@@ -1,0 +1,49 @@
+[package]
+name = "logos-lez-v03"
+version = "0.1.0"
+edition = "2024"
+license = "MIT OR Apache-2.0"
+
+[lib]
+crate-type = ["rlib", "cdylib"]
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["arbitrary_precision"] }
+ureq = { version = "3", features = ["json"] }
+base58 = "0.2"
+thiserror = "2"
+lee-v03 = { package = "lee", git = "https://github.com/logos-blockchain/logos-execution-zone.git", rev = "db66590ab821a4e142c211017a3866d007f6fa77" }
+lee-core-v03 = { package = "lee_core", git = "https://github.com/logos-blockchain/logos-execution-zone.git", rev = "db66590ab821a4e142c211017a3866d007f6fa77" }
+token-core-v03 = { package = "token_core", git = "https://github.com/logos-blockchain/logos-execution-zone.git", rev = "db66590ab821a4e142c211017a3866d007f6fa77" }
+chacha20 = "0.10"
+hmac = "0.12"
+borsh = { version = "1.5", features = ["derive"] }
+sha2 = "0.10"
+logos-wallet-policy = { path = "../wallet-core" }
+logos-wallet-store = { path = "../wallet-store" }
+zeroize = "1"
+base64 = "0.22"
+hex = "0.4"
+rpassword = "=7.5.4"
+libc = "0.2"
+rand_core = { version = "0.6", features = ["getrandom"] }
+
+risc0-zkvm = { version = "=3.0.5", default-features = false, features = ["std"] }
+risc0-binfmt = "=3.0.5"
+risc0-zkos-v1compat = "=2.2.2"
+
+[workspace]
+members = ["registry-core", "maps-core", "maps-sdk", "maps-publisher"]
+
+[profile.dev]
+debug = 0
+
+[profile.test]
+debug = 0
+
+[dev-dependencies]
+tempfile = "3"
+logos-maps-v03-core = { path = "maps-core" }
+logos-map-registry = { path = "../map-registry" }
+program-loader-core-v03 = { package = "program_loader_core", git = "https://github.com/logos-blockchain/logos-execution-zone.git", rev = "db66590ab821a4e142c211017a3866d007f6fa77" }

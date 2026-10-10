@@ -1,0 +1,28 @@
+[package]
+name = "logos-registry-sdk"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+logos-prize-registry = { path = "../registry" }
+spel-framework.workspace = true
+borsh.workspace = true
+serde.workspace = true
+serde_json = { workspace = true, features = ["arbitrary_precision"] }
+ureq = { version = "3", features = ["json"] }
+thiserror = "2"
+hex = "0.4"
+risc0-binfmt = "=3.0.5"
+sha2 = "0.10"
+lee = { git = "https://github.com/logos-blockchain/logos-execution-zone.git", tag = "v0.2.4" }
+common = { git = "https://github.com/logos-blockchain/logos-execution-zone.git", tag = "v0.2.4" }
+logos-wallet-policy = { path = "../wallet-core" }
+rpassword = "7"
+zeroize = "1"
+libc = "0.2"
+
+lee_core = { git = "https://github.com/logos-blockchain/logos-execution-zone.git", tag = "v0.2.4" }
+
+[dev-dependencies]
+tempfile = "3"

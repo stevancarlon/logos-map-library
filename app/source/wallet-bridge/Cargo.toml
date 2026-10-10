@@ -1,0 +1,12 @@
+[package]
+name = "logos-wallet-bridge"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+[lib]
+crate-type = ["cdylib", "rlib"]
+[dependencies]
+logos-wallet-lez = { path = "../wallet-lez" }
+logos-wallet-policy = { path = "../wallet-core" }
+serde_json.workspace = true
+zeroize = "1"

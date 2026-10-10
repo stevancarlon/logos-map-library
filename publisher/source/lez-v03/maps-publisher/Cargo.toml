@@ -1,0 +1,34 @@
+[package]
+name = "logos-maps-v03-publisher"
+version = "0.1.0"
+edition = "2024"
+license = "MIT OR Apache-2.0"
+
+[features]
+hosting = ["logos-maps-v03-sdk/distribution", "dep:tempfile"]
+
+[lib]
+crate-type = ["rlib", "cdylib"]
+
+[dependencies]
+tempfile = { version = "3", optional = true }
+logos-maps-v03-sdk = { path = "../maps-sdk", default-features = false }
+logos-wallet-store = { path = "../../wallet-store" }
+sha2 = "0.10"
+logos-wallet-policy = { path = "../../wallet-core" }
+rpassword = "=7.5.4"
+rand_core = { version = "0.6", features = ["getrandom"] }
+zeroize = "1"
+lee-v03 = { package = "lee", git = "https://github.com/logos-blockchain/logos-execution-zone.git", rev = "db66590ab821a4e142c211017a3866d007f6fa77" }
+lee-core-v03 = { package = "lee_core", git = "https://github.com/logos-blockchain/logos-execution-zone.git", rev = "db66590ab821a4e142c211017a3866d007f6fa77" }
+borsh = { version = "1.5", features = ["derive"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["arbitrary_precision"] }
+thiserror = "2"
+hex = "0.4"
+
+[dev-dependencies]
+tempfile = "3"
+
+[target.'cfg(unix)'.dependencies]
+libc = "0.2"

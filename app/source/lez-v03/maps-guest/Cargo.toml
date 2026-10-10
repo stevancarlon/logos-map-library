@@ -1,0 +1,12 @@
+[workspace]
+[package]
+name = "logos-maps-v03-guest"
+version = "0.1.0"
+edition = "2024"
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+logos-maps-v03-core = { path = "../maps-core" }
+lee-core-v03 = { package = "lee_core", git = "https://github.com/logos-blockchain/logos-execution-zone.git", rev = "db66590ab821a4e142c211017a3866d007f6fa77" }
+risc0-zkvm = { version = "=3.0.5", default-features = false, features = ["std"] }
+

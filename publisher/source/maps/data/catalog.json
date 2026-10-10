@@ -1,0 +1,585 @@
+{
+  "index_url": "https://download.geofabrik.de/index-v1.json",
+  "index_sha256": "9b1d170b09eee255c0e56925788eb367646397c1ba1882f36b4c5c79133691fc",
+  "matched": 72,
+  "missing": [],
+  "canonical_regions": [
+    {
+      "path": "south-america/argentina",
+      "name": "Argentina",
+      "country": "argentina",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/south-america/argentina-latest.osm.pbf"
+    },
+    {
+      "path": "australia-oceania/australia",
+      "name": "Australia",
+      "country": "australia",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/australia-oceania/australia-latest.osm.pbf"
+    },
+    {
+      "path": "europe/austria",
+      "name": "Austria",
+      "country": "austria",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/europe/austria-latest.osm.pbf"
+    },
+    {
+      "path": "asia/bangladesh",
+      "name": "Bangladesh",
+      "country": "bangladesh",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/asia/bangladesh-latest.osm.pbf"
+    },
+    {
+      "path": "europe/belarus",
+      "name": "Belarus",
+      "country": "belarus",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/europe/belarus-latest.osm.pbf"
+    },
+    {
+      "path": "europe/belgium",
+      "name": "Belgium",
+      "country": "belgium",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/europe/belgium-latest.osm.pbf"
+    },
+    {
+      "path": "south-america/brazil",
+      "name": "Brazil",
+      "country": "brazil",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/south-america/brazil-latest.osm.pbf"
+    },
+    {
+      "path": "europe/bulgaria",
+      "name": "Bulgaria",
+      "country": "bulgaria",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/europe/bulgaria-latest.osm.pbf"
+    },
+    {
+      "path": "north-america/canada",
+      "name": "Canada",
+      "country": "canada",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/north-america/canada-latest.osm.pbf"
+    },
+    {
+      "path": "south-america/chile",
+      "name": "Chile",
+      "country": "chile",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/south-america/chile-latest.osm.pbf"
+    },
+    {
+      "path": "asia/china/guangdong",
+      "name": "Guangdong (with Hong Kong and Macau)",
+      "country": "china",
+      "parent": "china",
+      "level": "subregion",
+      "source_url": "https://download.geofabrik.de/asia/china/guangdong-latest.osm.pbf"
+    },
+    {
+      "path": "asia/china/henan",
+      "name": "Henan",
+      "country": "china",
+      "parent": "china",
+      "level": "subregion",
+      "source_url": "https://download.geofabrik.de/asia/china/henan-latest.osm.pbf"
+    },
+    {
+      "path": "asia/china/jiangsu",
+      "name": "Jiangsu",
+      "country": "china",
+      "parent": "china",
+      "level": "subregion",
+      "source_url": "https://download.geofabrik.de/asia/china/jiangsu-latest.osm.pbf"
+    },
+    {
+      "path": "asia/china/shandong",
+      "name": "Shandong",
+      "country": "china",
+      "parent": "china",
+      "level": "subregion",
+      "source_url": "https://download.geofabrik.de/asia/china/shandong-latest.osm.pbf"
+    },
+    {
+      "path": "asia/china/sichuan",
+      "name": "Sichuan",
+      "country": "china",
+      "parent": "china",
+      "level": "subregion",
+      "source_url": "https://download.geofabrik.de/asia/china/sichuan-latest.osm.pbf"
+    },
+    {
+      "path": "asia/china/zhejiang",
+      "name": "Zhejiang",
+      "country": "china",
+      "parent": "china",
+      "level": "subregion",
+      "source_url": "https://download.geofabrik.de/asia/china/zhejiang-latest.osm.pbf"
+    },
+    {
+      "path": "south-america/colombia",
+      "name": "Colombia",
+      "country": "colombia",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/south-america/colombia-latest.osm.pbf"
+    },
+    {
+      "path": "europe/czech-republic",
+      "name": "Czech Republic",
+      "country": "czech-republic",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/europe/czech-republic-latest.osm.pbf"
+    },
+    {
+      "path": "europe/denmark",
+      "name": "Denmark",
+      "country": "denmark",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/europe/denmark-latest.osm.pbf"
+    },
+    {
+      "path": "africa/egypt",
+      "name": "Egypt",
+      "country": "egypt",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/africa/egypt-latest.osm.pbf"
+    },
+    {
+      "path": "africa/ethiopia",
+      "name": "Ethiopia",
+      "country": "ethiopia",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/africa/ethiopia-latest.osm.pbf"
+    },
+    {
+      "path": "europe/finland",
+      "name": "Finland",
+      "country": "finland",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/europe/finland-latest.osm.pbf"
+    },
+    {
+      "path": "europe/france",
+      "name": "France",
+      "country": "france",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/europe/france-latest.osm.pbf"
+    },
+    {
+      "path": "europe/germany",
+      "name": "Germany",
+      "country": "germany",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/europe/germany-latest.osm.pbf"
+    },
+    {
+      "path": "europe/great-britain",
+      "name": "Great Britain",
+      "country": "great-britain",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/europe/great-britain-latest.osm.pbf"
+    },
+    {
+      "path": "europe/greece",
+      "name": "Greece",
+      "country": "greece",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/europe/greece-latest.osm.pbf"
+    },
+    {
+      "path": "europe/hungary",
+      "name": "Hungary",
+      "country": "hungary",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/europe/hungary-latest.osm.pbf"
+    },
+    {
+      "path": "asia/india/central-zone",
+      "name": "Central Zone",
+      "country": "india",
+      "parent": "india",
+      "level": "subregion",
+      "source_url": "https://download.geofabrik.de/asia/india/central-zone-latest.osm.pbf"
+    },
+    {
+      "path": "asia/india/eastern-zone",
+      "name": "Eastern Zone",
+      "country": "india",
+      "parent": "india",
+      "level": "subregion",
+      "source_url": "https://download.geofabrik.de/asia/india/eastern-zone-latest.osm.pbf"
+    },
+    {
+      "path": "asia/india/north-eastern-zone",
+      "name": "North-Eastern Zone",
+      "country": "india",
+      "parent": "india",
+      "level": "subregion",
+      "source_url": "https://download.geofabrik.de/asia/india/north-eastern-zone-latest.osm.pbf"
+    },
+    {
+      "path": "asia/india/northern-zone",
+      "name": "Northern Zone",
+      "country": "india",
+      "parent": "india",
+      "level": "subregion",
+      "source_url": "https://download.geofabrik.de/asia/india/northern-zone-latest.osm.pbf"
+    },
+    {
+      "path": "asia/india/southern-zone",
+      "name": "Southern Zone",
+      "country": "india",
+      "parent": "india",
+      "level": "subregion",
+      "source_url": "https://download.geofabrik.de/asia/india/southern-zone-latest.osm.pbf"
+    },
+    {
+      "path": "asia/india/western-zone",
+      "name": "Western Zone",
+      "country": "india",
+      "parent": "india",
+      "level": "subregion",
+      "source_url": "https://download.geofabrik.de/asia/india/western-zone-latest.osm.pbf"
+    },
+    {
+      "path": "asia/indonesia",
+      "name": "Indonesia (with East Timor)",
+      "country": "indonesia",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/asia/indonesia-latest.osm.pbf"
+    },
+    {
+      "path": "asia/iran",
+      "name": "Iran",
+      "country": "iran",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/asia/iran-latest.osm.pbf"
+    },
+    {
+      "path": "europe/ireland-and-northern-ireland",
+      "name": "Ireland and Northern Ireland",
+      "country": "ireland-and-northern-ireland",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/europe/ireland-and-northern-ireland-latest.osm.pbf"
+    },
+    {
+      "path": "europe/italy",
+      "name": "Italy",
+      "country": "italy",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/europe/italy-latest.osm.pbf"
+    },
+    {
+      "path": "asia/japan",
+      "name": "Japan",
+      "country": "japan",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/asia/japan-latest.osm.pbf"
+    },
+    {
+      "path": "africa/kenya",
+      "name": "Kenya",
+      "country": "kenya",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/africa/kenya-latest.osm.pbf"
+    },
+    {
+      "path": "asia/malaysia-singapore-brunei",
+      "name": "Malaysia, Singapore, and Brunei",
+      "country": "malaysia-singapore-brunei",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/asia/malaysia-singapore-brunei-latest.osm.pbf"
+    },
+    {
+      "path": "north-america/mexico",
+      "name": "Mexico",
+      "country": "mexico",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/north-america/mexico-latest.osm.pbf"
+    },
+    {
+      "path": "africa/morocco",
+      "name": "Morocco",
+      "country": "morocco",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/africa/morocco-latest.osm.pbf"
+    },
+    {
+      "path": "europe/netherlands",
+      "name": "Netherlands",
+      "country": "netherlands",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/europe/netherlands-latest.osm.pbf"
+    },
+    {
+      "path": "africa/nigeria",
+      "name": "Nigeria",
+      "country": "nigeria",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/africa/nigeria-latest.osm.pbf"
+    },
+    {
+      "path": "europe/norway",
+      "name": "Norway",
+      "country": "norway",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/europe/norway-latest.osm.pbf"
+    },
+    {
+      "path": "asia/pakistan",
+      "name": "Pakistan",
+      "country": "pakistan",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/asia/pakistan-latest.osm.pbf"
+    },
+    {
+      "path": "south-america/peru",
+      "name": "Peru",
+      "country": "peru",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/south-america/peru-latest.osm.pbf"
+    },
+    {
+      "path": "asia/philippines",
+      "name": "Philippines",
+      "country": "philippines",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/asia/philippines-latest.osm.pbf"
+    },
+    {
+      "path": "europe/poland",
+      "name": "Poland",
+      "country": "poland",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/europe/poland-latest.osm.pbf"
+    },
+    {
+      "path": "europe/portugal",
+      "name": "Portugal",
+      "country": "portugal",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/europe/portugal-latest.osm.pbf"
+    },
+    {
+      "path": "europe/romania",
+      "name": "Romania",
+      "country": "romania",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/europe/romania-latest.osm.pbf"
+    },
+    {
+      "path": "russia/central-fed-district",
+      "name": "Central Federal District",
+      "country": "russia",
+      "parent": "russia",
+      "level": "subregion",
+      "source_url": "https://download.geofabrik.de/russia/central-fed-district-latest.osm.pbf"
+    },
+    {
+      "path": "russia/northwestern-fed-district",
+      "name": "Northwestern Federal District",
+      "country": "russia",
+      "parent": "russia",
+      "level": "subregion",
+      "source_url": "https://download.geofabrik.de/russia/northwestern-fed-district-latest.osm.pbf"
+    },
+    {
+      "path": "russia/siberian-fed-district",
+      "name": "Siberian Federal District",
+      "country": "russia",
+      "parent": "russia",
+      "level": "subregion",
+      "source_url": "https://download.geofabrik.de/russia/siberian-fed-district-latest.osm.pbf"
+    },
+    {
+      "path": "russia/volga-fed-district",
+      "name": "Volga Federal District",
+      "country": "russia",
+      "parent": "russia",
+      "level": "subregion",
+      "source_url": "https://download.geofabrik.de/russia/volga-fed-district-latest.osm.pbf"
+    },
+    {
+      "path": "africa/south-africa",
+      "name": "South Africa",
+      "country": "south-africa",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/africa/south-africa-latest.osm.pbf"
+    },
+    {
+      "path": "asia/south-korea",
+      "name": "South Korea",
+      "country": "south-korea",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/asia/south-korea-latest.osm.pbf"
+    },
+    {
+      "path": "europe/spain",
+      "name": "Spain",
+      "country": "spain",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/europe/spain-latest.osm.pbf"
+    },
+    {
+      "path": "europe/sweden",
+      "name": "Sweden",
+      "country": "sweden",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/europe/sweden-latest.osm.pbf"
+    },
+    {
+      "path": "europe/switzerland",
+      "name": "Switzerland",
+      "country": "switzerland",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/europe/switzerland-latest.osm.pbf"
+    },
+    {
+      "path": "asia/thailand",
+      "name": "Thailand",
+      "country": "thailand",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/asia/thailand-latest.osm.pbf"
+    },
+    {
+      "path": "europe/turkey",
+      "name": "Turkey",
+      "country": "turkey",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/europe/turkey-latest.osm.pbf"
+    },
+    {
+      "path": "europe/ukraine",
+      "name": "Ukraine (with Crimea)",
+      "country": "ukraine",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/europe/ukraine-latest.osm.pbf"
+    },
+    {
+      "path": "north-america/us/california",
+      "name": "us/california",
+      "country": "us",
+      "parent": "us",
+      "level": "subregion",
+      "source_url": "https://download.geofabrik.de/north-america/us/california-latest.osm.pbf"
+    },
+    {
+      "path": "north-america/us/florida",
+      "name": "us/florida",
+      "country": "us",
+      "parent": "us",
+      "level": "subregion",
+      "source_url": "https://download.geofabrik.de/north-america/us/florida-latest.osm.pbf"
+    },
+    {
+      "path": "north-america/us/georgia",
+      "name": "Georgia",
+      "country": "us",
+      "parent": "us",
+      "level": "subregion",
+      "source_url": "https://download.geofabrik.de/north-america/us/georgia-latest.osm.pbf"
+    },
+    {
+      "path": "north-america/us/illinois",
+      "name": "us/illinois",
+      "country": "us",
+      "parent": "us",
+      "level": "subregion",
+      "source_url": "https://download.geofabrik.de/north-america/us/illinois-latest.osm.pbf"
+    },
+    {
+      "path": "north-america/us/new-york",
+      "name": "us/new-york",
+      "country": "us",
+      "parent": "us",
+      "level": "subregion",
+      "source_url": "https://download.geofabrik.de/north-america/us/new-york-latest.osm.pbf"
+    },
+    {
+      "path": "north-america/us/pennsylvania",
+      "name": "us/pennsylvania",
+      "country": "us",
+      "parent": "us",
+      "level": "subregion",
+      "source_url": "https://download.geofabrik.de/north-america/us/pennsylvania-latest.osm.pbf"
+    },
+    {
+      "path": "north-america/us/texas",
+      "name": "us/texas",
+      "country": "us",
+      "parent": "us",
+      "level": "subregion",
+      "source_url": "https://download.geofabrik.de/north-america/us/texas-latest.osm.pbf"
+    },
+    {
+      "path": "north-america/us/washington",
+      "name": "us/washington",
+      "country": "us",
+      "parent": "us",
+      "level": "subregion",
+      "source_url": "https://download.geofabrik.de/north-america/us/washington-latest.osm.pbf"
+    },
+    {
+      "path": "asia/vietnam",
+      "name": "Vietnam",
+      "country": "vietnam",
+      "parent": null,
+      "level": "country",
+      "source_url": "https://download.geofabrik.de/asia/vietnam-latest.osm.pbf"
+    }
+  ],
+  "scope": "Discovery only, no hosted extracts"
+}

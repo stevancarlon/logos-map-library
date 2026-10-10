@@ -1,0 +1,24 @@
+{
+  "name": "prize_maps",
+  "version": "0.2.0",
+  "description": "Standalone public LEZ v0.3 map registry discovery SDK",
+  "type": "core",
+  "interface": "universal",
+  "dependencies": [],
+  "main": "prize_maps_plugin",
+  "codegen": {
+    "impl_header": "./MapsModule.h",
+    "impl_class": "MapsModule"
+  },
+  "nix": {
+    "external_libraries": [
+      {
+        "name": "logos_maps_v03_sdk"
+      }
+    ],
+    "packages": {
+      "build": [],
+      "runtime": []
+    }
+  }
+}

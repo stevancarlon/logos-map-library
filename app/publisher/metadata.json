@@ -1,0 +1,26 @@
+{
+  "name": "maps_publisher",
+  "version": "0.1.0",
+  "type": "core",
+  "description": "Owner-only v0.3 map approval and recovery",
+  "dependencies": [],
+  "interface": "universal",
+  "main": "maps_publisher_plugin",
+  "codegen": {
+    "impl_header": "./MapsPublisherModule.h",
+    "impl_class": "MapsPublisherModule"
+  },
+  "nix": {
+    "external_libraries": [
+      {
+        "name": "logos_maps_v03_publisher"
+      }
+    ],
+    "packages": {
+      "build": [],
+      "runtime": [
+        "nlohmann_json"
+      ]
+    }
+  }
+}

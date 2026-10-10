@@ -1,0 +1,6 @@
+module maps_publisher {
+  version "0.1.0"
+  description "Owner-only map registry approval and durable publication"
+  depends []
+  method owner(payload: tstr) -> tstr
+}

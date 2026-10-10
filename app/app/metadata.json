@@ -1,0 +1,22 @@
+{
+  "name": "logos_maps",
+  "display_name": "Map Library",
+  "version": "0.2.0",
+  "type": "ui_qml",
+  "category": "utilities",
+  "description": "LEZ v0.3 verified map storage, registration review and recovery. Development build.",
+  "view": "qml/Main.qml",
+  "dependencies": [
+    "maps_publisher",
+    "maps_distribution"
+  ],
+  "main": "logos_maps_plugin",
+  "icon": "assets/icon.png",
+  "nix": {
+    "external_libraries": [
+      {
+        "name": "logos_maps_v03_sdk"
+      }
+    ]
+  }
+}

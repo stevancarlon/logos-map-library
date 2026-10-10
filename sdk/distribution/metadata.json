@@ -1,0 +1,24 @@
+{
+  "name": "maps_distribution",
+  "version": "0.2.0",
+  "description": "Shared Map Library discovery service for the distribution app and Basecamp consumers",
+  "type": "core",
+  "interface": "universal",
+  "dependencies": [],
+  "main": "maps_distribution_plugin",
+  "codegen": {
+    "impl_header": "./MapsDistributionModule.h",
+    "impl_class": "MapsDistributionModule"
+  },
+  "nix": {
+    "external_libraries": [
+      {
+        "name": "logos_maps_v03_sdk"
+      }
+    ],
+    "packages": {
+      "build": [],
+      "runtime": []
+    }
+  }
+}

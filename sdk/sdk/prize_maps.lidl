@@ -1,0 +1,6 @@
+module prize_maps {
+  version "0.2.0"
+  description "Read-only LEZ v0.3 map registry discovery, independent of the distribution app"
+  depends []
+  method request(payload: tstr) -> tstr
+}

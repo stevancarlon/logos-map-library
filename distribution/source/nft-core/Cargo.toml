@@ -1,0 +1,13 @@
+[package]
+name = "logos-nft-inventory"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+[dependencies]
+logos-wallet-policy = { path = "../wallet-core" }
+token_core = { git = "https://github.com/logos-blockchain/lez-programs", rev = "64c01210adecd6b557dbd021a3cc94553f243fd8" }
+spel-framework.workspace = true
+serde.workspace = true
+borsh.workspace = true
+thiserror = "2"
+url = "2"

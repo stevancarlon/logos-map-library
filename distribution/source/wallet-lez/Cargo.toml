@@ -1,0 +1,32 @@
+[package]
+name = "logos-wallet-lez"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+[dependencies]
+logos-testimonial = { path = "../testimonial" }
+spel-framework.workspace = true
+borsh.workspace = true
+logos-wallet-policy = { path = "../wallet-core" }
+logos-registry-sdk = { path = "../registry-sdk" }
+lee = { git = "https://github.com/logos-blockchain/logos-execution-zone.git", tag = "v0.2.4" }
+lee_core = { git = "https://github.com/logos-blockchain/logos-execution-zone.git", tag = "v0.2.4" }
+common = { git = "https://github.com/logos-blockchain/logos-execution-zone.git", tag = "v0.2.4" }
+authenticated_transfer_core = { git = "https://github.com/logos-blockchain/logos-execution-zone.git", tag = "v0.2.4" }
+token_core = { git = "https://github.com/logos-blockchain/logos-execution-zone.git", tag = "v0.2.4" }
+programs = { git = "https://github.com/logos-blockchain/logos-execution-zone.git", tag = "v0.2.4", features = ["artifacts"] }
+sha2 = "0.10"
+thiserror = "2"
+serde_json.workspace = true
+rpassword = "7"
+zeroize = "1"
+serde.workspace = true
+rand_core = { version = "0.6", features = ["getrandom"] }
+logos-wallet-store = { path = "../wallet-store" }
+key_protocol = { git = "https://github.com/logos-blockchain/logos-execution-zone.git", tag = "v0.2.4" }
+vault_core = { git = "https://github.com/logos-blockchain/logos-execution-zone.git", tag = "v0.2.4" }
+
+[dev-dependencies]
+risc0-binfmt = "=3.0.5"
+tempfile = "3"
+logos-prize-registry = { path = "../registry" }

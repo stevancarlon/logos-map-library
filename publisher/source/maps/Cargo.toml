@@ -1,0 +1,31 @@
+[package]
+name = "logos-map-distribution"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+sha2 = "0.10"
+md-5 = "0.10"
+hex = "0.4"
+thiserror = "2"
+url = "2"
+ureq = { version = "3", features = ["json"] }
+tempfile = "3"
+
+logos-map-registry = { path = "../map-registry" }
+logos-map-sdk = { path = "../map-sdk", optional = true }
+logos-registry-sdk = { path = "../registry-sdk", optional = true }
+
+rpassword = "7"
+zeroize = "1"
+
+[features]
+default = ["legacy-cli"]
+legacy-cli = ["dep:logos-map-sdk", "dep:logos-registry-sdk"]
+
+[[bin]]
+name = "maps"
+path = "src/bin/maps.rs"
+required-features = ["legacy-cli"]

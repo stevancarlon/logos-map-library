@@ -1,0 +1,267 @@
+{
+  "version": "0.1.0",
+  "name": "map_registry",
+  "instructions": [
+    {
+      "name": "initialize",
+      "accounts": [
+        {
+          "name": "catalog",
+          "writable": true,
+          "signer": false,
+          "init": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": "maps"
+              }
+            ]
+          }
+        },
+        {
+          "name": "author",
+          "writable": false,
+          "signer": true,
+          "init": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "create_page",
+      "accounts": [
+        {
+          "name": "page",
+          "writable": true,
+          "signer": false,
+          "init": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": "map-page"
+              },
+              {
+                "kind": "arg",
+                "path": "number"
+              }
+            ]
+          }
+        },
+        {
+          "name": "author",
+          "writable": false,
+          "signer": true,
+          "init": false
+        }
+      ],
+      "args": [
+        {
+          "name": "number",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "register_batch",
+      "accounts": [
+        {
+          "name": "catalog",
+          "writable": true,
+          "signer": false,
+          "init": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": "maps"
+              }
+            ]
+          }
+        },
+        {
+          "name": "page",
+          "writable": true,
+          "signer": false,
+          "init": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": "map-page"
+              },
+              {
+                "kind": "arg",
+                "path": "number"
+              }
+            ]
+          }
+        },
+        {
+          "name": "author",
+          "writable": false,
+          "signer": true,
+          "init": false
+        }
+      ],
+      "args": [
+        {
+          "name": "number",
+          "type": "u64"
+        },
+        {
+          "name": "expected_count",
+          "type": "u64"
+        },
+        {
+          "name": "timestamp",
+          "type": "u64"
+        },
+        {
+          "name": "snapshots_json",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Snapshot",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "region",
+            "type": "string"
+          },
+          {
+            "name": "parent",
+            "type": {
+              "option": "string"
+            }
+          },
+          {
+            "name": "level",
+            "type": "string"
+          },
+          {
+            "name": "cid",
+            "type": "string"
+          },
+          {
+            "name": "source_url",
+            "type": "string"
+          },
+          {
+            "name": "checksum",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "sha256",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "bytes",
+            "type": "u64"
+          },
+          {
+            "name": "version",
+            "type": "u32"
+          },
+          {
+            "name": "hosted",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Record",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "snapshot",
+            "type": {
+              "defined": "Snapshot"
+            }
+          },
+          {
+            "name": "registrant",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "u64"
+          },
+          {
+            "name": "ordinal",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Catalog",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "schema",
+            "type": "u16"
+          },
+          {
+            "name": "count",
+            "type": "u64"
+          },
+          {
+            "name": "last_timestamp",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Page",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "schema",
+            "type": "u16"
+          },
+          {
+            "name": "number",
+            "type": "u64"
+          },
+          {
+            "name": "records",
+            "type": {
+              "vec": {
+                "defined": "Record"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "types": [],
+  "errors": []
+}
