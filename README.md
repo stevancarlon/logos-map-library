@@ -16,11 +16,12 @@ The latter use a small synthetic loopback Storage fixture. Separately,
 [hosted real-sequencer and authentic Storage integration passed](https://github.com/stevancarlon/logos-map-catalog/actions/runs/38025787623)
 on Linux, and a fresh Linux catalog installation was verified.
 
-The current source prepares app/SDK/distribution 0.2.1 and publisher 0.1.1.
-[Patch release builds](https://github.com/stevancarlon/logos-map-catalog/actions/runs/38027933050)
-are pending verification. The patch hides a previous success result after a
-new input error and includes two recovered upstream license texts. Earlier
-release checks do not prove these patch packages pass.
+The current app/SDK/distribution 0.2.1 and publisher 0.1.1 releases have
+[passed both platform builds](https://github.com/stevancarlon/logos-map-catalog/actions/runs/38027933050)
+and [packaged Linux/Mac runtime checks](https://github.com/stevancarlon/logos-map-catalog/actions/runs/38028353473).
+The patch hides a previous success result after a new input error and includes
+two recovered upstream license texts. Published archive hashes and both variants
+were verified with official `lgx`; fresh Linux catalog installation passed.
 
 This remains an incomplete development release. Official public-testnet
 deployment, public hosting coverage, full Mac real-node integration and genuine
