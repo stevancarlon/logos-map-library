@@ -9,12 +9,26 @@ module-builder export with its own README and source hash manifest. Build with
 sources allow each module to be built independently by the official release
 action; these are one project, not independent ecosystem adoption.
 
-Local Linux package loading, registry queries, authenticated publisher access,
-checksum handling and isolated Storage workflows have been tested. This is an
-incomplete development release, not a prize-completion claim. Public testnet
-deployment and coverage, catalog installation, macOS execution, hosted
-integration CI and genuine independent adoption remain to be demonstrated.
-The collected dependency notices explicitly retain unresolved provenance gaps.
+The preceding releases (app/SDK/distribution 0.2.0 and publisher 0.1.0) have
+[successful Linux and Apple Silicon builds](https://github.com/stevancarlon/logos-map-catalog/actions/runs/38024109058)
+and [packaged Basecamp runtime checks on both platforms](https://github.com/stevancarlon/logos-map-catalog/actions/runs/38025141148).
+The latter use a small synthetic loopback Storage fixture. Separately,
+[hosted real-sequencer and authentic Storage integration passed](https://github.com/stevancarlon/logos-map-catalog/actions/runs/38025787623)
+on Linux, and a fresh Linux catalog installation was verified.
+
+The current source prepares app/SDK/distribution 0.2.1 and publisher 0.1.1.
+[Patch release builds](https://github.com/stevancarlon/logos-map-catalog/actions/runs/38027933050)
+are pending verification. The patch hides a previous success result after a
+new input error and includes two recovered upstream license texts. Earlier
+release checks do not prove these patch packages pass.
+
+This remains an incomplete development release. Official public-testnet
+deployment, public hosting coverage, full Mac real-node integration and genuine
+independent adoption remain unverified. The collected dependency notices retain
+unresolved provenance gaps; no complete license review is claimed.
+
+Installable catalog: [Map Library development catalog](https://raw.githubusercontent.com/stevancarlon/logos-map-catalog/main/logos-repo.json).
+Packages are unsigned. No public registry program address is supplied yet.
 
 Original code is MIT OR Apache-2.0; see the license files in each module.
 
