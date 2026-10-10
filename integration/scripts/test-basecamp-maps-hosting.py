@@ -13,7 +13,8 @@ for endpoint in (a.rpc,a.storage):
 def digest(path):
     with path.open('rb') as f:return hashlib.file_digest(f,'sha256').hexdigest()
 with tempfile.TemporaryDirectory(prefix='maps-hosting-form-') as folder:
-    profile=pathlib.Path(folder);downloads=profile/'downloads';downloads.mkdir()
+    # Resolve macOS /var -> /private/var before SQLite's NOFOLLOW check.
+    profile=pathlib.Path(folder).resolve(strict=True);downloads=profile/'downloads';downloads.mkdir()
     keys=profile/'keys'
     subprocess.run([root/'target/debug/examples/native-publisher-fixture',keys],check=True)
     subprocess.run(['python3',root/'scripts/install-maps-ui.py','--user-dir',profile],check=True,stdout=subprocess.DEVNULL)
