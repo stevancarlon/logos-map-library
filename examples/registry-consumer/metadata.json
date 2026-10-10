@@ -1,0 +1,9 @@
+{
+  "name": "prize_maps_consumer",
+  "display_name": "Map SDK Explorer",
+  "version": "0.1.0",
+  "type": "ui_qml",
+  "view": "qml/Main.qml",
+  "description": "Minimal map discovery consumer using the standalone SDK",
+  "dependencies": ["prize_maps"]
+}

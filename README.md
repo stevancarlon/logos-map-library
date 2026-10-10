@@ -17,3 +17,6 @@ integration CI and genuine independent adoption remain to be demonstrated.
 The collected dependency notices explicitly retain unresolved provenance gaps.
 
 Original code is MIT OR Apache-2.0; see the license files in each module.
+
+A runnable [standalone SDK Explorer example](examples/registry-consumer/README.md)
+installs without the distribution app. It is first-party integration evidence.
