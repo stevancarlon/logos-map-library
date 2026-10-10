@@ -8542,16 +8542,32 @@
         "source": "registry+https://github.com/rust-lang/crates.io-index",
         "declared_license": "MIT OR Apache-2.0",
         "repository": "https://github.com/Ethiraric/yaml-rust2",
-        "notices": [],
+        "notices": [
+          {
+            "path": "rust/upstream/Ethiraric/yaml-rust2/215f3fc67606ce8dcaca3a18ca9df2aa7bdbc189/Apache-LICENSE",
+            "upstream_path": "Apache-LICENSE",
+            "url": "https://raw.githubusercontent.com/Ethiraric/yaml-rust2/215f3fc67606ce8dcaca3a18ca9df2aa7bdbc189/Apache-LICENSE",
+            "sha256": "278f0e5c23f023a2f1af8d528dd5c29dc3a5ea2dd63558aa8d4f077c09e037c7"
+          },
+          {
+            "path": "rust/upstream/Ethiraric/yaml-rust2/215f3fc67606ce8dcaca3a18ca9df2aa7bdbc189/MIT-LICENSE",
+            "upstream_path": "MIT-LICENSE",
+            "url": "https://raw.githubusercontent.com/Ethiraric/yaml-rust2/215f3fc67606ce8dcaca3a18ca9df2aa7bdbc189/MIT-LICENSE",
+            "sha256": "3dd30063cdb4a378736348c215cb84b78b0711ba7e39903162cae5ce71dc9757"
+          }
+        ],
         "cargo_vcs_info": {
           "git": {
             "sha1": "215f3fc67606ce8dcaca3a18ca9df2aa7bdbc189"
           },
           "path_in_vcs": ""
         },
-        "status": "missing_text",
+        "status": "upstream_texts_collected",
         "upstream_lookup": {
-          "files": [],
+          "files": [
+            "Apache-LICENSE",
+            "MIT-LICENSE"
+          ],
           "tree_url": "https://api.github.com/repos/Ethiraric/yaml-rust2/git/trees/215f3fc67606ce8dcaca3a18ca9df2aa7bdbc189?recursive=1"
         }
       },
@@ -8831,8 +8847,7 @@
     "missing_text": [
       "base58 0.2.0",
       "docker-generate 0.1.3",
-      "include_bytes_aligned 0.1.4",
-      "yaml-rust2 0.10.4"
+      "include_bytes_aligned 0.1.4"
     ]
   },
   "native": {

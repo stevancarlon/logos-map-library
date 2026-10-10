@@ -1,6 +1,6 @@
 {
   "name": "maps_publisher",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "core",
   "description": "Owner-only v0.3 map approval and recovery",
   "dependencies": [],

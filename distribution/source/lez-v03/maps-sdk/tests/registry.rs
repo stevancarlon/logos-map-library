@@ -440,3 +440,52 @@ fn registration_planner_splits_at_page_edge_and_requests_missing_page() {
         _ => panic!("must cap the next batch at eight"),
     }
 }
+
+#[test]
+fn scans_order_across_pages_and_break_timestamp_ties_by_ordinal() {
+    let registry = fixture();
+    let count = PAGE_SIZE as u64 + 2;
+    let records: Vec<_> = (0..count)
+        .map(|ordinal| Record {
+            snapshot: snapshot("africa/ethiopia"),
+            registrant: [7; 32],
+            timestamp: 100 + ordinal / 2,
+            ordinal,
+        })
+        .collect();
+    let mut states = registry.reader.states.borrow_mut();
+    states.insert(
+        catalog_address(id(3)),
+        borsh::to_vec(&Catalog {
+            schema: SCHEMA,
+            count,
+            last_timestamp: records.last().unwrap().timestamp,
+        })
+        .unwrap()
+        .try_into()
+        .unwrap(),
+    );
+    for (number, chunk) in records.chunks(PAGE_SIZE).enumerate() {
+        states.insert(
+            page_address(id(3), number as u64),
+            borsh::to_vec(&Page {
+                schema: SCHEMA,
+                number: number as u64,
+                records: chunk.to_vec(),
+            })
+            .unwrap()
+            .try_into()
+            .unwrap(),
+        );
+    }
+    drop(states);
+    let first = registry.query(0, &Filter::default()).unwrap();
+    assert_eq!(first.next_page, Some(1));
+    assert_eq!(first.records[0].ordinal, PAGE_SIZE as u64 - 1);
+    let all = registry.scan(&Filter::default(), 2).unwrap();
+    assert_eq!(
+        all.iter().map(|record| record.ordinal).collect::<Vec<_>>(),
+        (0..count).rev().collect::<Vec<_>>()
+    );
+    assert!(all.windows(2).all(|pair| pair[0].timestamp >= pair[1].timestamp));
+}

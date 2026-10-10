@@ -1,6 +1,6 @@
 {
   "name": "prize_maps",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Standalone public LEZ v0.3 map registry discovery SDK",
   "type": "core",
   "interface": "universal",

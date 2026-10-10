@@ -166,6 +166,15 @@ with tempfile.TemporaryDirectory(prefix='logos-v03-sequencer-', dir=args.scratch
             evidence = json.loads(result.stdout)
             if evidence.get('result') != 'passed':
                 raise RuntimeError('Client did not report success')
+            if args.suite == 'maps' and os.environ.get('MAPS_HOSTED_OFFLINE_CLI'):
+                if not evidence.get('hosting'):
+                    raise RuntimeError('Offline-hosted regression requires an authentic hosting record')
+                offline = run_monitored(['python3',str(ROOT/'scripts/test-maps-hosted-offline.py'),
+                    '--cli',os.environ['MAPS_HOSTED_OFFLINE_CLI'],'--rpc',endpoint,
+                    '--program',evidence['program_account'],'--storage',os.environ['MAPS_HOST_STORAGE_API'],
+                    '--snapshot',json.dumps(evidence['hosting']['snapshot'])],process,capture_stdout=True,timeout=600)
+                if offline.returncode:raise RuntimeError((offline.stdout or '')+' Offline hosted regression failed')
+                evidence['hosted_without_source']=json.loads(offline.stdout)
             if args.maps_bulk:
                 bulk_result = run_monitored([str(args.maps_bulk.resolve()), endpoint,
                     evidence['program_account'], str(scratch / 'maps-bulk.sqlite')],

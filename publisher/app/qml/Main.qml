@@ -679,7 +679,7 @@ Rectangle {
                         font.pixelSize: 13
                     }
                     Rectangle {
-                        visible: !control.state.running && control.state.kind !== "query" && Object.keys(control.state.result).length > 0
+                        visible: !control.error && !control.state.error && !control.state.running && control.state.kind !== "query" && Object.keys(control.state.result).length > 0
                         Layout.fillWidth: true
                         implicitHeight: resultColumn.implicitHeight + 28
                         color: "#e6eddf"

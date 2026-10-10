@@ -1,8 +1,10 @@
 # Map Library for Logos Basecamp
 
 Native C++/Qt/QML and Rust map distribution modules for LP-0018. Development
-release: local Linux integration is tested; official-zone deployment, public
-coverage, macOS runtime validation and independent adoption remain incomplete.
+release: Linux real-node integration and Linux/macOS packaged runtime checks
+passed for the preceding release. This export requires fresh release verification.
+Official-zone deployment, public coverage, full macOS real-node integration and
+independent adoption remain incomplete.
 Packages are unsigned. Dependency notices under `licenses/dependencies` retain
 the unresolved upstream texts; this is not a complete license review.
 

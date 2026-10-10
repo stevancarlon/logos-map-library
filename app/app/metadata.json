@@ -1,7 +1,7 @@
 {
   "name": "logos_maps",
   "display_name": "Map Library",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "type": "ui_qml",
   "category": "utilities",
   "description": "LEZ v0.3 verified map storage, registration review and recovery. Development build.",

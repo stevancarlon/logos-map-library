@@ -1,19 +1,22 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: MIT OR Apache-2.0
 """Authentic two-region Basecamp fetch/store/register/query/download handlers."""
-import argparse, datetime, hashlib, json, os, pathlib, platform, re, signal, subprocess, tempfile, time
+import argparse, runpy, datetime, hashlib, json, os, pathlib, platform, re, signal, subprocess, tempfile, time
 from urllib.parse import urlsplit
 root=pathlib.Path(__file__).resolve().parents[1]
 p=argparse.ArgumentParser(description=__doc__)
 for name in ('basecamp','rpc','program','storage'):p.add_argument('--'+name,required=True)
+p.add_argument('--deny-external-replay',action='store_true',default=os.environ.get('MAPS_UI_OFFLINE_REPLAY')=='1')
 a=p.parse_args()
+if a.deny_external_replay and platform.system()!='Linux':p.error('External-egress replay currently requires Linux')
 for endpoint in (a.rpc,a.storage):
     u=urlsplit(endpoint)
     if u.scheme!='http' or u.hostname!='127.0.0.1' or not u.port:p.error('Disposable loopback nodes only')
 def digest(path):
     with path.open('rb') as f:return hashlib.file_digest(f,'sha256').hexdigest()
 with tempfile.TemporaryDirectory(prefix='maps-hosting-form-') as folder:
-    # Resolve macOS /var -> /private/var before SQLite's NOFOLLOW check.
+    # macOS exposes its temporary directory through /var -> /private/var.
+    # Resolve the disposable parent before SQLite's intentional NOFOLLOW check.
     profile=pathlib.Path(folder).resolve(strict=True);downloads=profile/'downloads';downloads.mkdir()
     keys=profile/'keys'
     subprocess.run([root/'target/debug/examples/native-publisher-fixture',keys],check=True)
@@ -21,7 +24,12 @@ with tempfile.TemporaryDirectory(prefix='maps-hosting-form-') as folder:
     receipt_path=profile/'.maps-release-install.json'
     release_receipt=json.loads(receipt_path.read_text()) if receipt_path.is_file() else None
     main=profile/'plugins/logos_maps/qml/Main.qml';original=main.read_text()
-    def run(recovery):
+    guard=None
+    if a.deny_external_replay:
+        guard_source=runpy.run_path(str(root/'scripts/test-maps-hosted-offline.py'))['GUARD']
+        guard=profile/'guard.so';source=profile/'guard.c';source.write_text(guard_source)
+        subprocess.run(['cc','-shared','-fPIC','-Wall','-Wextra','-Werror',str(source),'-ldl','-o',str(guard)],check=True)
+    def run(recovery, offline=False):
         injected='''
     Timer {
         property int phase:0
@@ -30,6 +38,13 @@ with tempfile.TemporaryDirectory(prefix='maps-hosting-form-') as folder:
         interval:500;running:true;repeat:true
         onTriggered: {
             var c=publishing.controller;
+            if(__OFFLINE__ && phase===-2) {
+                if(control.state.running)return;
+                var failure=String(control.error || control.state.error || "");
+                if(failure.indexOf("MAPS_EGRESS_DENIED")<0) {console.log("HOST_FORM_ERROR","source was not blocked",failure);stop();return;}
+                console.log("HOST_FORM_SOURCE_BLOCKED");
+                control.query(publishing.snapshots[0].region,0);phase=8;return;
+            }
             if(c.error || control.error || control.state.error) {console.log("HOST_FORM_ERROR",c.error,control.error,control.state.error);stop();return;}
             if(phase===0 && control.ready) {
                 control.settings(__RPC__,__PROGRAM__,__STORAGE__);phase=1;
@@ -39,6 +54,10 @@ with tempfile.TemporaryDirectory(prefix='maps-hosting-form-') as folder:
                 publishing.unlock();phase=2;
             } else if(phase===2 && c.unlocked && !c.busy) {
                 if(publishing.keyPassword.length || publishing.outboxPassword.length) {console.log("HOST_FORM_ERROR","password retained");stop();return;}
+                if(__OFFLINE__) {
+                    if(publishing.snapshots.length!==2) {console.log("HOST_FORM_ERROR","queue lost");stop();return;}
+                    control.refreshCatalog();phase=-2;return;
+                }
                 if(__RECOVERY__) {
                     if(publishing.snapshots.length!==2) {console.log("HOST_FORM_ERROR","queue lost");stop();return;}
                     publishing.chooseAll();publishing.prepare();phase=12;return;
@@ -71,7 +90,7 @@ with tempfile.TemporaryDirectory(prefix='maps-hosting-form-') as folder:
                 if(!record) {console.log("HOST_FORM_ERROR","registered snapshot absent");stop();return;}
                 console.log("HOST_FORM_RECORD",JSON.stringify(record));
                 root.chooseRecord(record);
-                control.start({op:"download_snapshot",snapshot:record.snapshot,file:__DIRECTORY__+"/retrieved-"+index+".pbf",limit:"500000000"});phase=9;
+                control.start({op:"download_snapshot",snapshot:record.snapshot,file:__DIRECTORY__+(__OFFLINE__ ? "/offline-retrieved-" : "/retrieved-")+index+".pbf",limit:"500000000"});phase=9;
             } else if(phase===9 && !control.state.running && control.state.kind==="download_snapshot") {
                 index++;
                 if(index<2) {control.query(publishing.snapshots[index].region,0);phase=8;}
@@ -84,13 +103,16 @@ with tempfile.TemporaryDirectory(prefix='maps-hosting-form-') as folder:
 '''
         replacements={'__RPC__':a.rpc,'__PROGRAM__':a.program,'__STORAGE__':a.storage,
             '__KEY__':str(keys/'key.vault'),'__OUTBOX__':str(keys/'outbox.sqlite'),
-            '__RECOVERY__':recovery,'__DIRECTORY__':str(downloads)}
+            '__RECOVERY__':recovery,'__OFFLINE__':offline,'__DIRECTORY__':str(downloads)}
         for k,v in replacements.items():injected=injected.replace(k,json.dumps(v))
         main.write_text(original.replace('    id: root','    id: root'+injected,1))
         env=dict(os.environ,LOGOS_USER_DIR=str(profile),XDG_CONFIG_HOME=str(profile/'config'),
             XDG_CACHE_HOME=str(profile/'cache'),QT_QPA_PLATFORM='offscreen',QT_QUICK_BACKEND='software')
+        if offline:
+            env={k:v for k,v in env.items() if k.lower() not in ('http_proxy','https_proxy','all_proxy','no_proxy')}
+            env['LD_PRELOAD']=str(guard)
         marker='HOST_FORM_RECOVERED' if recovery else 'HOST_FORM_DONE'
-        with (profile/('recovery.log' if recovery else 'hosting.log')).open('w+') as log:
+        with (profile/('offline.log' if offline else 'recovery.log' if recovery else 'hosting.log')).open('w+') as log:
             child=subprocess.Popen([a.basecamp,'--uri=basecamp://app/logos_maps'],env=env,
                 stdout=log,stderr=log,start_new_session=True)
             try:
@@ -103,7 +125,8 @@ with tempfile.TemporaryDirectory(prefix='maps-hosting-form-') as folder:
                 else:raise RuntimeError('Hosting form timeout: '+output[-12000:])
                 assert 'maps-native-fixture' not in output
                 value=json.loads(re.search(marker+r' ([^\n]+)',output).group(1))
-                if not recovery:
+                if offline:assert "HOST_FORM_SOURCE_BLOCKED" in output
+                if not recovery and not offline:
                     records=[json.loads(raw) for raw in re.findall(r'HOST_FORM_RECORD ([^\n]+)',output)]
                     assert len(records)==2
                     batch=value['review']['instruction']['RegisterBatch']
@@ -115,19 +138,21 @@ with tempfile.TemporaryDirectory(prefix='maps-hosting-form-') as folder:
                 except subprocess.TimeoutExpired:os.killpg(child.pid,signal.SIGKILL);child.wait()
                 except ProcessLookupError:pass
     result=run(False);recovered=run(True)
+    offline_result=run(False,offline=True) if a.deny_external_replay else None
     assert len(recovered)==1 and recovered[0]['hash']==result['history'][0]['hash']
     assert {s['region'] for s in result['snapshots']}=={'africa/ethiopia','africa/kenya'}
     for i,snapshot in enumerate(result['snapshots']):
         source=downloads/(snapshot['region'].replace('/','-')+'-'+str(snapshot['version'])+'.osm.pbf')
         assert source.stat().st_size==snapshot['bytes'] and digest(source)==bytes(snapshot['sha256']).hex()
         assert digest(downloads/f'retrieved-{i}.pbf')==digest(source)
+        if offline_result:assert digest(downloads/f'offline-retrieved-{i}.pbf')==digest(source)
 paths=['native/maps/qml/Main.qml','native/maps/qml/BulkPanel.qml','native/maps/qml/PublisherPanel.qml',
        'native/maps/qml/PublisherController.qml','native/backend/MapBackend.cpp','native/maps/libmaps_backend.so',
        'artifacts/maps-publisher/build/liblogos_maps_v03_publisher.so','scripts/test-basecamp-maps-hosting.py']
 if release_receipt:
     paths=[path for path in paths if not path.endswith('.so')]
 evidence=dict(result='passed',platform=platform.system()+'-'+platform.machine(),scope='actual Basecamp form handlers; authentic live Ethiopia and Kenya extracts, isolated Storage and disposable v0.3 sequencer; no public hosting or coverage',
-    authentic_storage_roundtrip=True,source_date_refresh=True,per_region_opt_out=True,registered_snapshot_downloads=True,
+    authentic_storage_roundtrip=True,hosted_ui_without_external_egress=bool(offline_result),source_date_refresh=True,per_region_opt_out=True,registered_snapshot_downloads=True,
     basecamp_restart_completion=True,snapshots=result['snapshots'],hash=result['history'][0]['hash'],
     checked_at=datetime.datetime.now(datetime.timezone.utc).isoformat(),
     sha256={f:digest(root/f) for f in paths})
