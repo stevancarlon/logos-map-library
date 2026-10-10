@@ -166,6 +166,21 @@ with tempfile.TemporaryDirectory(prefix='logos-v03-sequencer-', dir=args.scratch
             evidence = json.loads(result.stdout)
             if evidence.get('result') != 'passed':
                 raise RuntimeError('Client did not report success')
+            if args.suite == 'maps' and os.environ.get('MAPS_COVERAGE_CLI'):
+                if not evidence.get('hosting'):
+                    raise RuntimeError('Coverage verifier fixture requires authentic hosting')
+                report_path = scratch / 'coverage-check.json'
+                checked = run_monitored(['python3', str(ROOT/'scripts/verify-maps-coverage.py'),
+                    '--cli', os.environ['MAPS_COVERAGE_CLI'], '--rpc', endpoint,
+                    '--program', evidence['program_account'], '--storage', os.environ['MAPS_HOST_STORAGE_API'],
+                    '--scratch', str(scratch/'coverage'), '--output', str(report_path)],
+                    process, capture_stdout=True, timeout=900)
+                report = json.loads(report_path.read_text())
+                if checked.returncode != 1 or report['result'] != 'checked' or report['coverage_threshold_met'] or report['official_endpoint']:
+                    raise RuntimeError('Isolated coverage fixture must remain nonqualifying')
+                if report['coverage']['regions'] != ['africa/ethiopia']:
+                    raise RuntimeError('Only the authentic Ethiopia fixture may verify')
+                evidence['coverage_verifier'] = report
             if args.suite == 'maps' and os.environ.get('MAPS_HOSTED_OFFLINE_CLI'):
                 if not evidence.get('hosting'):
                     raise RuntimeError('Offline-hosted regression requires an authentic hosting record')

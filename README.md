@@ -37,3 +37,7 @@ A runnable [standalone SDK Explorer example](examples/registry-consumer/README.m
 installs without the distribution app. It is first-party integration evidence.
 
 Terminal users: [complete CLI setup and workflows](docs/cli.md).
+
+Coverage evaluators: [read-only byte verification and counting](docs/coverage.md).
+The verifier has passed an authentic isolated-node fixture; no qualifying public
+coverage is claimed.
