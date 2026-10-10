@@ -1,16 +1,16 @@
 // SPDX-License-Identifier: MIT OR Apache-2.0
 //! Disposable local fixture. Fixed keys/automatic signing MUST NOT be used outside this test.
-use anyhow::{Result, ensure};
+use anyhow::{ensure, Result};
 use lee_core_v03::{
     account::{AccountId, ProgramShardSelector},
-    program::{PROGRAM_LOADER_ACCOUNT_ID, ProgramHeader},
+    program::{ProgramHeader, PROGRAM_LOADER_ACCOUNT_ID},
 };
 use lee_v03::{
-    PrivateKey, PublicKey, PublicTransaction,
     fees::FeeDeclaration,
     public_transaction::{Message, WitnessSet},
+    PrivateKey, PublicKey, PublicTransaction,
 };
-use logos_maps_v03_sdk::{Filter, Instruction, Reader, Registry, Snapshot, rpc::Node};
+use logos_maps_v03_sdk::{rpc::Node, Filter, Instruction, Reader, Registry, Snapshot};
 use std::{
     path::Path,
     time::{Duration, Instant, SystemTime, UNIX_EPOCH},
@@ -141,11 +141,12 @@ fn main() -> Result<()> {
         let message = registry.prepare(author, &instruction, fee(author))?;
         transactions.push(submit(&registry.reader, message, &[&payer], saved)?);
     }
+    let mut expected_records = Vec::new();
     for (count, size) in [(0u64, 1usize), (1, 8)] {
         let timestamp = SystemTime::now().duration_since(UNIX_EPOCH)?.as_millis() as u64;
         let snapshots: Vec<_> = logos_map_registry::regions::REGIONS
             .iter()
-            .skip(count as usize)
+            .skip(8 + count as usize)
             .take(size)
             .map(|(region, parent, level)| Snapshot {
                 region: (*region).into(),
@@ -160,6 +161,12 @@ fn main() -> Result<()> {
                 hosted: true,
             })
             .collect();
+        expected_records.extend(
+            snapshots
+                .iter()
+                .cloned()
+                .map(|snapshot| (snapshot, timestamp)),
+        );
         let instruction = Instruction::RegisterBatch {
             number: 0,
             expected_count: count,
@@ -176,6 +183,35 @@ fn main() -> Result<()> {
     }
     let page = registry.query(0, &Filter::default())?;
     ensure!(page.records.len() == 9 && page.next_page.is_none());
+    for (ordinal, (snapshot, timestamp)) in expected_records.iter().enumerate() {
+        let stored = page
+            .records
+            .iter()
+            .find(|record| record.ordinal == ordinal as u64)
+            .ok_or_else(|| anyhow::anyhow!("Missing registered ordinal {ordinal}"))?;
+        ensure!(
+            &stored.snapshot == snapshot,
+            "Stored snapshot metadata changed"
+        );
+        ensure!(stored.timestamp == *timestamp, "Stored timestamp changed");
+    }
+    let children = registry.query(
+        0,
+        &Filter {
+            parent: Some("china"),
+            ..Default::default()
+        },
+    )?;
+    ensure!(
+        children.records.len() == 6,
+        "Parent lookup omitted registered subregions"
+    );
+    ensure!(children
+        .records
+        .iter()
+        .all(|record| record.snapshot.parent.as_deref() == Some("china")
+            && record.snapshot.level == "subregion"));
+
     let region = &page.records[0].snapshot.region;
     ensure!(
         registry
@@ -203,18 +239,16 @@ fn main() -> Result<()> {
             .len()
             == 9
     );
-    ensure!(
-        registry
-            .query(
-                0,
-                &Filter {
-                    parent: Some("missing"),
-                    ..Default::default()
-                }
-            )?
-            .records
-            .is_empty()
-    );
+    ensure!(registry
+        .query(
+            0,
+            &Filter {
+                parent: Some("missing"),
+                ..Default::default()
+            }
+        )?
+        .records
+        .is_empty());
     ensure!(page.records.iter().all(|r| r.registrant == *author.value()));
     let mut hosting = serde_json::Value::Null;
     #[cfg(feature = "distribution")]
@@ -309,6 +343,7 @@ fn main() -> Result<()> {
         "{}",
         serde_json::json!({"result":"passed","program_account":program,"image_id":expected_image,
         "transactions":transactions,"synthetic_records":9,"hosting":hosting,"single_and_batch_registration":true,"sdk_queries":true,
+        "exact_snapshot_metadata":true,"positive_parent_query_records":6,
         "stale_count_rejected":true,"scope":"Local v0.3 signed loader deployment and SDK registration/query. Nine synthetic records are separate from optional authentic hosting evidence. No public testnet, independent finality or adoption."})
     );
     Ok(())
