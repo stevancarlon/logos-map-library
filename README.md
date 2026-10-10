@@ -41,3 +41,6 @@ Terminal users: [complete CLI setup and workflows](docs/cli.md).
 Coverage evaluators: [read-only byte verification and counting](docs/coverage.md).
 The verifier has passed an authentic isolated-node fixture; no qualifying public
 coverage is claimed.
+
+Registry operators: [wallet-compatible artifact and deployment prerequisites](docs/deployment.md).
+The downloadable bundle is explicitly undeployed.
